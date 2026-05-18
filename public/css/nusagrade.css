@@ -161,6 +161,10 @@ p, h1, h2, h3, h4, span, a, li, td {
   margin: 0 auto;
   padding: 0 48px;
 }
+
+/* Ensure pages with fixed navbar (like the 404) have spacing so content doesn't overlap the nav */
+.error-top-spacing { padding-top: var(--nav-offset, 86px); transition: padding-top var(--transition); will-change: padding-top; }
+
 .nav-logo {
   font-family: var(--serif);
   font-size: 1.5rem;
@@ -281,21 +285,32 @@ p, h1, h2, h3, h4, span, a, li, td {
   align-items: center;
 }
 .btn-primary {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: var(--brown);
-  color: var(--cream);
-  border: 2px solid var(--brown);
-  padding: 13px 28px;
-  border-radius: 2px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.3s, border-color 0.3s, transform 0.2s;
-  display: inline-block;
+   font-family: var(--mono);
+   font-size: 0.68rem;
+   letter-spacing: 0.12em;
+   text-transform: uppercase;
+   background: var(--brown);
+   color: var(--cream);
+   border: 2px solid var(--brown);
+   padding: 13px 28px;
+   border-radius: 2px;
+   cursor: pointer;
+   text-decoration: none;
+   transition: background 0.3s, border-color 0.3s, transform 0.2s;
+   display: inline-block;
 }
 .btn-primary:hover { background: var(--brown-dark); border-color: var(--brown-dark); transform: translateY(-1px); }
+
+.btn-primary.btn-lg {
+   font-size: 0.78rem;
+   padding: 15px 32px;
+}
+
+.btn-primary.btn-xl {
+   font-size: 0.88rem;
+   padding: 18px 36px;
+   letter-spacing: 0.14em;
+}
 .btn-outline {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -510,8 +525,9 @@ p, h1, h2, h3, h4, span, a, li, td {
   line-height: 1.6;
 }
 .products-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.06);
@@ -519,6 +535,7 @@ p, h1, h2, h3, h4, span, a, li, td {
   overflow: hidden;
 }
 .product-card {
+  flex: 0 0 calc(20% - 1px);
   background: rgba(30,18,8,0.7);
   cursor: pointer;
   transition: background 0.35s;
@@ -1355,6 +1372,7 @@ footer {
 @media (max-width: 1024px) {
   .container { padding: 0 32px; }
   .nav-inner { padding: 0 32px; }
+  .error-top-spacing { padding-top: var(--nav-offset, 74px); transition: padding-top var(--transition); will-change: padding-top; }
 
   /* Hero */
   .hero-content { padding: 0 32px 60px; }
@@ -1367,7 +1385,7 @@ footer {
   }
 
   /* Products: 5 → 3 cols */
-  .products-grid { grid-template-columns: repeat(3, 1fr); }
+  .product-card { flex: 0 0 calc(33.333% - 1px); }
 
   /* CTA: 2 → 1 col */
   .cta-inner {
@@ -1407,6 +1425,7 @@ footer {
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
   .nav-inner { padding: 0 20px; }
+  .error-top-spacing { padding-top: var(--nav-offset, 64px); transition: padding-top var(--transition); will-change: padding-top; }
 
   /* Navbar: show hamburger, hide nav-links by default */
   .nav-toggle { display: flex; }
@@ -1529,7 +1548,7 @@ footer {
   .vm-item:last-child { border-bottom: none; }
 
   /* Products: 3 → 2 cols, header stack */
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .product-card { flex: 0 0 calc(50% - 1px); }
   .products-header {
     flex-direction: column;
     align-items: flex-start;
@@ -1640,7 +1659,7 @@ footer {
   .nav-inner { padding: 0 14px; }
 
   /* Products: 2 → 1 col agar tidak terlalu sempit */
-  .products-grid { grid-template-columns: 1fr; }
+  .product-card { flex: 0 0 calc(100% - 1px); }
 
   /* CTA buttons stack */
   .cta-actions { flex-direction: column; }
@@ -1669,7 +1688,7 @@ footer {
   .nav-inner { padding: 0 12px; }
 
   /* Force semua ke 1 col */
-  .products-grid { grid-template-columns: 1fr; }
+  .product-card { flex: 0 0 calc(100% - 1px); }
   .gallery-grid  { grid-template-columns: 1fr; grid-template-rows: auto; }
   .gallery-item:first-child { grid-column: 1; grid-row: span 1; }
   .about-stats { grid-template-columns: repeat(2, 1fr); }

@@ -25,6 +25,13 @@
     <meta name="twitter:description" content="@yield('og-description', 'Trusted Indonesian export company for premium spices, coffee, and cocoa.')">
     <meta name="twitter:image" content="@yield('og-image', asset('images/hero.png'))">
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon_io/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon_io/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('images/favicon_io/site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon_io/favicon.ico') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/nusagrade.css') }}">
@@ -186,6 +193,8 @@ function toggleMenu() {
     const toggle = document.querySelector('.nav-toggle');
     links.classList.toggle('open');
     toggle.classList.toggle('open');
+    // Recalculate navbar offset after the menu changes (allow layout to settle)
+    setTimeout(() => { if (typeof setNavbarOffset === 'function') setNavbarOffset(); }, 60);
 }
 
 // Reveal on scroll
@@ -206,6 +215,22 @@ function toggleFaq(el) {
     document.querySelectorAll('.faq-icon').forEach(i => { i.textContent = '+'; });
     if (!isOpen) { answer.style.maxHeight = answer.scrollHeight + 'px'; icon.textContent = '×'; }
 }
+</script>
+</script>
+
+<!-- Dynamic navbar offset: set CSS variable --nav-offset so fixed navbar doesn't overlap content -->
+<script>
+function setNavbarOffset() {
+    const nav = document.getElementById('navbar');
+    if (!nav) return;
+    const rect = nav.getBoundingClientRect();
+    const height = Math.ceil(rect.height);
+    document.documentElement.style.setProperty('--nav-offset', height + 'px');
+}
+
+document.addEventListener('DOMContentLoaded', setNavbarOffset);
+window.addEventListener('resize', setNavbarOffset);
+window.addEventListener('load', () => setTimeout(setNavbarOffset, 60));
 </script>
 
 </body>

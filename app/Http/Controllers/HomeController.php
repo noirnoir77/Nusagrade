@@ -136,6 +136,72 @@ class HomeController extends Controller
                 ],
                 'origins' => ['Sulawesi Tengah', 'Sulawesi Tenggara', 'Papua', 'Maluku'],
             ],
+            'manual-dried-fishmeal' => [
+                'name'      => 'Manual Dried Fishmeal (60%)',
+                'badge'     => '60% Protein Fishmeal',
+                'tag'       => 'Fishery Product · Export Grade',
+                'image'     => 'images/products/manual-dried-fishmeal.webp',
+                'imgLabel'  => "manual dried fishmeal\nproduct photo",
+                'shortDesc' => 'Traditional sun-dried fishmeal from high-grade Lemuru — 60% protein, cost-efficient nutrition.',
+                'desc'      => 'Crafted with selected high-grade Lemuru, our 60% Manual Dried Fishmeal offers increased protein concentration while maintaining the traditional manual sun-dried technique. Suitable for clients prioritizing cost-efficiency without compromising essential nutrition.',
+                'specs'     => [
+                    ['Protein Content',       '≥ 60%'],
+                    ['Ash Content',           '≤ 20%'],
+                    ['Moisture Content',      '≤ 10%'],
+                    ['TVBN',                  '≤ 150 mg/100g'],
+                    ['Raw Material',          'Lemuru (Sardinella)'],
+                    ['Processing Method',     'Manual Sun-Dried'],
+                    ['Packaging',             '50 kg PP Bags'],
+                    ['Min. Order (MOQ)',      '1x20 FCL Export / 8 Tons Domestic'],
+                    ['Storage Temperature',   'Below 25°C (77°F)'],
+                    ['Certificate',           'COA, COO, Phytosanitary'],
+                ],
+                'origins' => ['Banyuwangi – Jawa Timur'],
+            ],
+            'steam-dried-fishmeal' => [
+                'name'      => 'Steam Dried Fishmeal (60%)',
+                'badge'     => '60% Steam Dried Fishmeal',
+                'tag'       => 'Fishery Product · Export Grade',
+                'image'     => 'images/products/steam-dried-fishmeal.webp',
+                'imgLabel'  => "steam dried fishmeal\nproduct photo",
+                'shortDesc' => 'High-protein steam dried fishmeal from Lemuru & Tuna — ≥60% protein, low moisture, high digestibility.',
+                'desc'      => 'Formulated for high-performance feed applications, our 60% Steam Dried Fishmeal is made from selected Lemuru and Tuna, delivering exceptional protein concentration (≥60%) with low moisture and high digestibility. Suitable for advanced aquafeed formulations requiring elevated protein inputs.',
+                'specs'     => [
+                    ['Protein Content',       '≥ 60%'],
+                    ['Ash Content',           '≤ 20%'],
+                    ['Moisture Content',      '≤ 6%'],
+                    ['TVBN',                  '≤ 150 mg/100g'],
+                    ['Raw Material',          'Lemuru & Tuna'],
+                    ['Processing Method',     'Steam Dried'],
+                    ['Packaging',             '50 kg PP Bags'],
+                    ['Min. Order (MOQ)',      '1x20 FCL Export / 8 Tons Domestic'],
+                    ['Storage Temperature',   'Below 25°C (77°F)'],
+                    ['Certificate',           'COA, COO, Phytosanitary'],
+                ],
+                'origins' => ['Banyuwangi – Jawa Timur'],
+            ],
+            'fish-oil' => [
+                'name'      => 'Fish Oil',
+                'badge'     => 'Refined Fish Oil',
+                'tag'       => 'Fishery Product · Export Grade',
+                'image'     => 'images/products/fish-oil.webp',
+                'imgLabel'  => "fish oil\nproduct photo",
+                'shortDesc' => 'Refined fish oil rich in Omega-3 fatty acids — ideal for aquaculture and livestock feed.',
+                'desc'      => 'Our Fish Oil is a high-quality, refined product extracted from fresh fish, rich in Omega-3 fatty acids. It is ideal for enhancing the nutritional value of animal feed, particularly in aquaculture and livestock industries.',
+                'specs'     => [
+                    ['Free Fatty Acid',       '≤ 4%'],
+                    ['Iodine Value',          '154g I2/100g'],
+                    ['Peroxide Value',        '3.86 mEq/kg'],
+                    ['Omega-3 Content',       'High (EPA + DHA)'],
+                    ['Raw Material',          'Fresh Fish (Lemuru)'],
+                    ['Extraction Method',     'Refined & Cold Pressed'],
+                    ['Packaging',             'IBC Tank 1000 Litre'],
+                    ['Min. Order (MOQ)',      '1x20 FCL Export'],
+                    ['Storage Temperature',   '5°C – 15°C (41°F – 59°F)'],
+                    ['Certificate',           'COA, COO, Phytosanitary'],
+                ],
+                'origins' => ['Banyuwangi – Jawa Timur'],
+            ],
         ];
     }
 
@@ -144,7 +210,7 @@ class HomeController extends Controller
         return [
             ['value' => '50+', 'label' => 'Happy Clients'],
             ['value' => '12+', 'label' => 'Years Active'],
-            ['value' => '5',   'label' => 'Commodities'],
+            ['value' => '8',   'label' => 'Commodities'],
             ['value' => '20+', 'label' => 'Countries Reached'],
         ];
     }
@@ -165,7 +231,7 @@ class HomeController extends Controller
             ['image' => 'images/gallery/gallery-kapulaga.png',  'label' => "Kapulaga\nfarm",          'caption' => 'Kapulaga Farm'],
             ['image' => 'images/gallery/gallery-kopi.png',                                  'label' => "Kopi\nbeans",             'caption' => 'Kopi Beans'],
             ['image' => 'images/gallery/gallery-kakao.png',   'label' => "Kakao\npods",             'caption' => 'Kakao Pods'],
-            ['image' => null,                                  'label' => "Export\nwarehouse",       'caption' => 'Our Warehouse'],
+            ['image' => 'images/gallery/gallery-warehouse.png', 'label' => "Export\nwarehouse",       'caption' => 'Our Warehouse'],
         ];
     }
 
