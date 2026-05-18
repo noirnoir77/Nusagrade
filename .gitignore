@@ -14,12 +14,16 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
+# /public/build is intentionally tracked so Hostinger Git deploys ship built
+# Vite assets without needing Node on the server. Run `npm run build` locally
+# before pushing whenever JS/CSS changes.
 /public/hot
 /public/storage
 /storage/*.key
 /storage/pail
-/vendor
+# /vendor is intentionally tracked: Hostinger shared hosting has no SSH/composer,
+# so production needs prebuilt PHP dependencies committed in the repo.
+# Run `composer install --no-dev --optimize-autoloader` locally before deploying.
 _ide_helper.php
 Homestead.json
 Homestead.yaml

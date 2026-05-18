@@ -1,0 +1,29 @@
+# Hostinger / shared-hosting layout where the whole project lives in public_html.
+# This file forwards every request into Laravel's /public folder so the actual
+# document root does not need to be changed in hPanel.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Force non-www -> apex domain (nusagrade.com)
+    RewriteCond %{HTTP_HOST} ^www\.nusagrade\.com$ [NC]
+    RewriteRule ^(.*)$ https://nusagrade.com/$1 [L,R=301]
+
+    # Rewrite all requests into the public/ folder
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Block direct access to sensitive files in the project root
+<FilesMatch "^\.env|composer\.(json|lock)$|package\.json$|package-lock\.json$|artisan$|\.git">
+    Require all denied
+</FilesMatch>
+
+# Block access to dotfiles and dot-directories
+RedirectMatch 404 /\.(?!well-known)
+
+Options -Indexes
