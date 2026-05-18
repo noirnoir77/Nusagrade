@@ -40,7 +40,10 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            // Write directly into /public/storage so we don't need a symlink.
+            // Hostinger shared hosting disables both exec() and symlink(), so
+            // `php artisan storage:link` is not usable.
+            'root' => public_path('storage'),
             'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,

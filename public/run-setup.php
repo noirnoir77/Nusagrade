@@ -75,25 +75,18 @@ foreach ($commands as [$command, $args]) {
     }
 }
 
-// Manually create public/storage -> ../storage/app/public symlink.
-echo "Creating storage symlink\n";
-$link   = __DIR__ . '/storage';
-$target = __DIR__ . '/../storage/app/public';
-
-if (! is_dir($target)) {
-    @mkdir($target, 0775, true);
-}
-
-if (file_exists($link) || is_link($link)) {
-    echo "  -> already exists, skipping\n\n";
-} elseif (function_exists('symlink') && @symlink($target, $link)) {
-    echo "  -> OK (symlink created)\n\n";
+// Ensure public/storage exists as a regular directory.
+// Hostinger disables symlink() and exec(), so we skip symlinking entirely;
+// config/filesystems.php points the "public" disk at public_path('storage')
+// directly, so uploads land here without a symlink.
+echo "Ensuring public/storage directory exists\n";
+$dir = __DIR__ . '/storage';
+if (is_dir($dir)) {
+    echo "  -> already exists\n\n";
+} elseif (@mkdir($dir, 0775, true)) {
+    echo "  -> OK (directory created)\n\n";
 } else {
-    // Fallback: some hosts disable symlink(). Tell the user to use the
-    // hPanel File Manager's "Create symbolic link" option, or to update
-    // config/filesystems.php to write directly into public/storage.
-    echo "  -> WARNING: symlink() unavailable or failed. Create it in hPanel\n";
-    echo "     File Manager: link public/storage -> ../storage/app/public\n\n";
+    echo "  -> ERROR: could not create public/storage. Create it in hPanel File Manager.\n\n";
 }
 
 echo "=== Done ===\n";
