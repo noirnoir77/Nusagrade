@@ -47,13 +47,15 @@ if (trim((string) $currentKey) === '') {
     $commands[] = ['key:generate', ['--force' => true]];
 }
 
+// NOTE: `php artisan storage:link` is skipped here. Hostinger shared hosting
+// disables exec(), which Laravel's storage:link can fall back to. We create
+// the symlink directly via PHP's symlink() below.
 $commands = array_merge($commands, [
     ['config:clear',  []],
     ['route:clear',   []],
     ['view:clear',    []],
     ['migrate',       ['--force' => true]],
     ['db:seed',       ['--force' => true]],
-    ['storage:link',  []],
     ['config:cache',  []],
     ['route:cache',   []],
     ['view:cache',    []],
@@ -71,6 +73,27 @@ foreach ($commands as [$command, $args]) {
     } catch (\Throwable $e) {
         echo '  -> ERROR: ' . $e->getMessage() . "\n\n";
     }
+}
+
+// Manually create public/storage -> ../storage/app/public symlink.
+echo "Creating storage symlink\n";
+$link   = __DIR__ . '/storage';
+$target = __DIR__ . '/../storage/app/public';
+
+if (! is_dir($target)) {
+    @mkdir($target, 0775, true);
+}
+
+if (file_exists($link) || is_link($link)) {
+    echo "  -> already exists, skipping\n\n";
+} elseif (function_exists('symlink') && @symlink($target, $link)) {
+    echo "  -> OK (symlink created)\n\n";
+} else {
+    // Fallback: some hosts disable symlink(). Tell the user to use the
+    // hPanel File Manager's "Create symbolic link" option, or to update
+    // config/filesystems.php to write directly into public/storage.
+    echo "  -> WARNING: symlink() unavailable or failed. Create it in hPanel\n";
+    echo "     File Manager: link public/storage -> ../storage/app/public\n\n";
 }
 
 echo "=== Done ===\n";
