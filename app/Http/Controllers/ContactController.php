@@ -18,7 +18,7 @@ class ContactController extends Controller
             'phone'   => ['nullable', 'string', 'max:30'],
         ]);
 
-        Mail::to('info@nusagrade.com')->send(new ContactSubmission($validated));
+        Mail::to('contact@nusagrade.com')->send(new ContactSubmission($validated));
 
         return redirect()->route('home', '#contact')
             ->with('success', 'Pesan Anda telah terkirim. Kami akan menghubungi Anda dalam 1 hari kerja.');

@@ -18,7 +18,7 @@
       "name": "Nusagrade",
       "url": "{{ url('/') }}",
       "description": "Trusted Indonesian export company connecting the world with authentic spices, coffee, and cocoa from Indonesia's fertile islands.",
-      "email": "info@nusagrade.com",
+      "email": "contact@nusagrade.com",
       "foundingLocation": {
         "@@type": "Country",
         "name": "Indonesia"
@@ -30,7 +30,7 @@
       "contactPoint": {
         "@@type": "ContactPoint",
         "contactType": "customer service",
-        "email": "info@nusagrade.com",
+        "email": "contact@nusagrade.com",
         "availableLanguage": ["English", "Indonesian"]
       }
     },
@@ -296,11 +296,11 @@
         </div>
         <div class="contact-info-item">
           <span class="contact-info-label">Email</span>
-          <span class="contact-info-value">info@nusagrade.com</span>
+          <span class="contact-info-value">contact@nusagrade.com</span>
         </div>
         <div class="contact-info-item">
           <span class="contact-info-label">Phone / WhatsApp</span>
-          <span class="contact-info-value">+62 xxx-xxxx-xxxx</span>
+          <span class="contact-info-value">+62 851-6122-3231</span>
         </div>
       </div>
     </div>
