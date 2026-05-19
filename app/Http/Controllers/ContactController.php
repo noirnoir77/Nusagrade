@@ -18,7 +18,14 @@ class ContactController extends Controller
             'phone'   => ['nullable', 'string', 'max:30'],
         ]);
 
-        Mail::to('contact@nusagrade.com')->send(new ContactSubmission($validated));
+        try {
+            Mail::to('contact@nusagrade.com')->send(new ContactSubmission($validated));
+        } catch (\Throwable $e) {
+            \Log::error('Contact form mail failed: ' . $e->getMessage());
+
+            return redirect()->route('home', '#contact')
+                ->with('error', 'Pesan Anda gagal terkirim karena masalah teknis. Silakan hubungi kami langsung melalui WhatsApp atau email contact@nusagrade.com.');
+        }
 
         return redirect()->route('home', '#contact')
             ->with('success', 'Pesan Anda telah terkirim. Kami akan menghubungi Anda dalam 1 hari kerja.');

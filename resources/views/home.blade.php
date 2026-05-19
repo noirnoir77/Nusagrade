@@ -310,6 +310,10 @@
         <div class="alert-success">{{ session('success') }}</div>
       @endif
 
+      @if (session('error'))
+        <div class="alert-error">{{ session('error') }}</div>
+      @endif
+
       <form class="contact-form" method="POST" action="{{ route('contact.submit') }}">
         @csrf
         <div class="form-row">
