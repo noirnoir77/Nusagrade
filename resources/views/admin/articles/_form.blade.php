@@ -49,7 +49,15 @@
 
     {{-- Body --}}
     <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Body</label>
+        <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium text-gray-700">Body</label>
+            <label for="html-upload" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                Upload HTML
+            </label>
+        </div>
+        <input type="file" id="html-upload" accept=".html,.htm" class="hidden">
+        <p id="html-upload-status" class="text-xs text-gray-400 mb-1 hidden"></p>
         <textarea name="body" id="article-body" rows="20"
                   class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">{{ old('body', $article->body ?? '') }}</textarea>
     </div>
@@ -257,4 +265,35 @@
     }
     const schemaEl = document.getElementById('schema-input');
     if (schemaEl && schemaEl.value.trim()) validateJson(schemaEl);
+
+    // HTML file upload → populate TinyMCE body
+    document.getElementById('html-upload').addEventListener('change', function () {
+        const file = this.files[0];
+        if (!file) return;
+        const status = document.getElementById('html-upload-status');
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            let html = e.target.result;
+            const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            if (bodyMatch) html = bodyMatch[1].trim();
+            const editor = tinymce.get('article-body');
+            if (editor) {
+                editor.setContent(html);
+                status.textContent = 'Loaded: ' + file.name;
+                status.className = 'text-xs text-green-600 mb-1';
+            } else {
+                document.getElementById('article-body').value = html;
+                status.textContent = 'Loaded: ' + file.name + ' (editor not ready — save to apply)';
+                status.className = 'text-xs text-yellow-600 mb-1';
+            }
+            status.classList.remove('hidden');
+        };
+        reader.onerror = function () {
+            status.textContent = 'Failed to read file.';
+            status.className = 'text-xs text-red-500 mb-1';
+            status.classList.remove('hidden');
+        };
+        reader.readAsText(file);
+        this.value = '';
+    });
 </script>
